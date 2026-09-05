@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_daily_weather
+    description: "Cleaned staging model of raw daily weather observations."
+    columns:
+      - name: city
+        description: "City name."
+        tests:
+          - not_null
+      - name: observation_date
+        description: "Date of the weather observation."
+        tests:
+          - not_null
+      - name: temp_max_c
+        tests:
+          - not_null

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: "One row per city, with coordinates."
+    columns:
+      - name: city
+        description: "City name, primary key of this dimension."
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: "Calendar date dimension for 2025."
+    columns:
+      - name: observation_date
+        description: "Calendar date, primary key of this dimension."
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_weather_daily
+    description: "Daily weather measurements per city, joined to date and city dimensions."
+    columns:
+      - name: city
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_city')
+                field: city
+      - name: observation_date
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: observation_date
